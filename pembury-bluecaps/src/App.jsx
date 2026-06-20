@@ -194,6 +194,35 @@ const MATCHES = [
     extras: { nb: 10, wd: 13, b: 12, lb: 0, total: 35 },
     fow: "3/1 S Brewis · 83/2 D Meeks · 99/3 A Slonecki · 113/4 C Baker-Swain · 146/5 A Fell",
   },
+  {
+    id: "m7", date: "19 Jun 2026", opponent: "Leigh CC Kent U13", opponentShort: "Leigh (A)",
+    venue: "Leigh CC", toss: "Leigh won toss, elected to field",
+    pemburyScore: "151/6", pemburyOvers: 20, opponentScore: "110/6", opponentOvers: 20,
+    result: "WIN", margin: "41 runs",
+    batting: [
+      { name: "Sam Brewis",        runs:  8, balls: 17, fours: 1, sixes: 0, out: "b F Drew",             sr:  47.06 },
+      { name: "Molly Cairns",      runs: 38, balls: 40, fours: 5, sixes: 0, out: "not out",               sr:  95.00 },
+      { name: "Freddie Hall",      runs:  0, balls:  2, fours: 0, sixes: 0, out: "b F Drew",              sr:   0.00 },
+      { name: "Caleb Baker-Swain", runs: 12, balls: 15, fours: 1, sixes: 0, out: "run out (H Mattheus)", sr:  80.00 },
+      { name: "Jake Nicholson",    runs: 30, balls: 14, fours: 4, sixes: 1, out: "retired n.o.",          sr: 214.29 },
+      { name: "Bailey Osman",      runs: 13, balls: 10, fours: 3, sixes: 0, out: "b O Rich",              sr: 130.00 },
+      { name: "Dexter Robles",     runs:  1, balls:  4, fours: 0, sixes: 0, out: "b H Mattheus",          sr:  25.00 },
+      { name: "Harry Brown",       runs:  7, balls:  8, fours: 1, sixes: 0, out: "not out",               sr:  87.50 },
+      { name: "Avery Fell",        runs:  1, balls:  7, fours: 0, sixes: 0, out: "b C Portwood",          sr:  14.29 },
+    ],
+    bowling: [
+      { name: "Harry Brown",       overs: 3, runs: 14, wkts: 2, econ:  4.67 },
+      { name: "Jake Nicholson",    overs: 3, runs: 15, wkts: 0, econ:  5.00 },
+      { name: "Avery Fell",        overs: 3, runs: 28, wkts: 0, econ:  9.33 },
+      { name: "Bailey Osman",      overs: 2, runs: 10, wkts: 0, econ:  5.00 },
+      { name: "Freddie Hall",      overs: 2, runs:  9, wkts: 1, econ:  4.50 },
+      { name: "Dexter Robles",     overs: 3, runs: 17, wkts: 0, econ:  5.67 },
+      { name: "Molly Cairns",      overs: 2, runs:  8, wkts: 1, econ:  4.00 },
+      { name: "Caleb Baker-Swain", overs: 2, runs:  3, wkts: 2, econ:  1.50 },
+    ],
+    extras: { nb: 10, wd: 12, b: 17, lb: 2, total: 41 },
+    fow: "39/1 S Brewis · 39/2 F Hall · 107/3 C Baker-Swain · 124/4 D Robles · 128/5 B Osman · 136/6 A Fell",
+  },
 ];
 
 function seasonStats() {
