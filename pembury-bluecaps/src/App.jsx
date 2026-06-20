@@ -256,6 +256,47 @@ function seasonStats() {
 const SEASON = seasonStats();
 const WINS = MATCHES.filter(m => m.result === "WIN").length;
 
+const BLUE_CAPS = ["Sam Brewis","Molly Cairns","Caleb Baker-Swain","Jake Nicholson","Freddie Hall","Dexter Robles","Harry Brown","Bailey Osman","Eleanor Pateman","Dominic Meeks","Avery Fell","Tristan Durrant","Petrus Leung","Toby Waterman","Austin Slonecki"];
+
+const LEAGUE_BATTING = [
+  { rank:1,  name:"Jake Nicholson",    games:7, inn:7, no:6, runs:153, hs:"32*", avg:153.00, sr:153.00 },
+  { rank:2,  name:"Sam Brewis",        games:7, inn:7, no:3, runs:132, hs:"31*", avg:33.00,  sr:76.30  },
+  { rank:3,  name:"Molly Cairns",      games:6, inn:4, no:3, runs:116, hs:"38*", avg:116.00, sr:89.92  },
+  { rank:4,  name:"Caleb Baker-Swain", games:7, inn:7, no:1, runs:113, hs:"30*", avg:18.83,  sr:78.47  },
+  { rank:5,  name:"Hugo Brown",        games:4, inn:4, no:1, runs:81,  hs:"34",  avg:27.00,  sr:91.46  },
+  { rank:6,  name:"Theo Manjrekar",    games:2, inn:2, no:0, runs:70,  hs:"48",  avg:35.00,  sr:79.55  },
+  { rank:7,  name:"Freddie Hall",      games:6, inn:6, no:2, runs:69,  hs:"33*", avg:17.25,  sr:98.57  },
+  { rank:8,  name:"Seb Murphy",        games:3, inn:3, no:0, runs:67,  hs:"29",  avg:22.33,  sr:87.50  },
+  { rank:9,  name:"Finn Watson",       games:5, inn:5, no:2, runs:66,  hs:"33*", avg:22.00,  sr:81.40  },
+  { rank:10, name:"Max Chamberlin",    games:3, inn:3, no:2, runs:63,  hs:"32*", avg:63.00,  sr:80.49  },
+];
+
+const LEAGUE_BOWLING = [
+  { rank:1,  name:"Caleb Baker-Swain", overs:14.4, runs:52, wkts:10, best:"3/5",  econ:3.55, avg:5.20  },
+  { rank:2,  name:"Molly Cairns",      overs:11.4, runs:66, wkts:7,  best:"3/6",  econ:5.66, avg:9.43  },
+  { rank:3,  name:"Freddie Hall",      overs:12,   runs:63, wkts:7,  best:"3/5",  econ:5.25, avg:9.00  },
+  { rank:4,  name:"Dexter Robles",     overs:16,   runs:80, wkts:7,  best:"2/15", econ:5.00, avg:11.43 },
+  { rank:5,  name:"Charlie Portwood",  overs:10,   runs:43, wkts:6,  best:"3/13", econ:4.30, avg:7.17  },
+  { rank:6,  name:"Reyansh Gupta",     overs:12.2, runs:67, wkts:5,  best:"2/14", econ:5.43, avg:13.40 },
+  { rank:7,  name:"Harry Brown",       overs:10,   runs:54, wkts:4,  best:"2/14", econ:5.40, avg:13.50 },
+  { rank:8,  name:"Harry Constant",    overs:2,    runs:4,  wkts:4,  best:"4/4",  econ:2.00, avg:1.00  },
+  { rank:9,  name:"Oliver Curran",     overs:4,    runs:31, wkts:4,  best:"3/18", econ:7.75, avg:7.75  },
+  { rank:10, name:"Freddie Drew",      overs:7,    runs:43, wkts:4,  best:"2/8",  econ:6.14, avg:10.75 },
+];
+
+const LEAGUE_FIELDING = [
+  { rank:1,  name:"Sam Brewis",     wkCatches:5, stumpings:7, wkWkts:12, fldCatches:0, runOuts:2, totalFld:2, totalCatches:5, totalVictims:14 },
+  { rank:2,  name:"Seb Murphy",     wkCatches:0, stumpings:0, wkWkts:0,  fldCatches:1, runOuts:2, totalFld:3, totalCatches:1, totalVictims:3  },
+  { rank:3,  name:"Dexter Robles",  wkCatches:0, stumpings:0, wkWkts:0,  fldCatches:2, runOuts:1, totalFld:3, totalCatches:2, totalVictims:3  },
+  { rank:4,  name:"Caleb Baker-Swain", wkCatches:0, stumpings:0, wkWkts:0, fldCatches:1, runOuts:1, totalFld:2, totalCatches:1, totalVictims:2 },
+  { rank:5,  name:"George Bathurst-Taylor", wkCatches:1, stumpings:0, wkWkts:1, fldCatches:0, runOuts:1, totalFld:1, totalCatches:1, totalVictims:2 },
+  { rank:6,  name:"Shreyas Kambrath",  wkCatches:1, stumpings:0, wkWkts:1, fldCatches:1, runOuts:0, totalFld:1, totalCatches:2, totalVictims:2 },
+  { rank:7,  name:"Jake Nicholson",    wkCatches:0, stumpings:0, wkWkts:0, fldCatches:1, runOuts:1, totalFld:2, totalCatches:1, totalVictims:2 },
+  { rank:8,  name:"Oscar Sanford",     wkCatches:2, stumpings:0, wkWkts:2, fldCatches:0, runOuts:0, totalFld:0, totalCatches:2, totalVictims:2 },
+  { rank:9,  name:"Raife Walker",      wkCatches:2, stumpings:0, wkWkts:2, fldCatches:0, runOuts:0, totalFld:0, totalCatches:2, totalVictims:2 },
+  { rank:10, name:"Finn Watson",       wkCatches:2, stumpings:0, wkWkts:2, fldCatches:0, runOuts:0, totalFld:0, totalCatches:2, totalVictims:2 },
+];
+
 // ── style helpers ──────────────────────────────────────────────────────────────
 const th = (left) => ({
   fontFamily:"monospace", fontSize:10, letterSpacing:1.5, textTransform:"uppercase",
@@ -288,6 +329,7 @@ export default function App() {
   const [matchId, setMId]   = useState(null);
   const [mTab, setMTab]     = useState("batting");
   const [sTab, setSTab]     = useState("batting");
+  const [lTab, setLTab]     = useState("batting");
 
   const goMatch = (id) => { setMId(id); setMTab("batting"); setView("match"); };
   const m = MATCHES.find(x => x.id === matchId);
@@ -339,6 +381,7 @@ export default function App() {
         <nav style={{ display:"flex", gap:8, marginBottom:26, flexWrap:"wrap" }}>
           <NavBtn label="Overview"     active={view==="overview"} onClick={()=>setView("overview")} />
           <NavBtn label="Season Stats" active={view==="season"}   onClick={()=>setView("season")} />
+          <NavBtn label="League Tables" active={view==="league"}   onClick={()=>setView("league")} />
           {MATCHES.map(x => (
             <NavBtn key={x.id} label={`vs ${x.opponentShort}`}
               active={view==="match" && matchId===x.id}
@@ -572,6 +615,113 @@ export default function App() {
                     </tbody>
                   </table>
                 </div>
+              </div>
+            )}
+          </div>
+        )}
+
+
+        {/* ══ LEAGUE TABLES ══ */}
+        {view === "league" && (
+          <div>
+            <div style={{ display:"flex", borderBottom:`1px solid ${BORDER}`, marginBottom:20 }}>
+              {["batting","bowling","fielding"].map(t => (
+                <button key={t} onClick={()=>setLTab(t)} style={{ background:"transparent", color:lTab===t?GOLD:MUTED, border:"none", borderBottom:`2px solid ${lTab===t?GOLD:"transparent"}`, fontFamily:"monospace", fontSize:11, letterSpacing:1, textTransform:"uppercase", padding:"8px 14px", cursor:"pointer" }}>{t}</button>
+              ))}
+            </div>
+
+            {lTab === "batting" && (
+              <div>
+                <div style={{ display:"flex", alignItems:"center", gap:12, margin:"0 0 14px" }}>
+                  <div style={{ width:26, height:26, background:GOLD, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:12 }}>🏏</div>
+                  <h2 style={{ fontFamily:"Georgia,serif", fontSize:18, fontWeight:700, color:CREAM }}>Division 2 · Top 10 Batting</h2>
+                  <div style={{ flex:1, height:1, background:BORDER }} />
+                </div>
+                <div style={{ overflowX:"auto", borderRadius:6, border:`1px solid ${BORDER}`, background:CARD }}>
+                  <table style={{ width:"100%", borderCollapse:"collapse" }}>
+                    <thead><tr>{["#","Player","Games","Inn","NO","Runs","HS","Avg","SR"].map((h,i)=><th key={h} style={{ fontFamily:"monospace", fontSize:10, letterSpacing:1.5, textTransform:"uppercase", color:GOLD, padding:"10px 13px", textAlign:i<=1?"left":"right", whiteSpace:"nowrap", background:NAVY2, borderBottom:`2px solid ${GOLD}` }}>{h}</th>)}</tr></thead>
+                    <tbody>
+                      {LEAGUE_BATTING.map(p => {
+                        const isBC = BLUE_CAPS.includes(p.name);
+                        return (<tr key={p.rank} style={{ background: isBC?"rgba(201,168,76,0.08)":"transparent", borderBottom:`1px solid ${BORDER}` }}>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:isBC?GOLD:MUTED, textAlign:"left", whiteSpace:"nowrap" }}>{p.rank}</td>
+                          <td style={{ padding:"9px 13px", fontSize:13, fontWeight:500, color:isBC?GOLD:CREAM, textAlign:"left", whiteSpace:"nowrap", minWidth:160 }}>{p.name}{isBC?" 🔵":""}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.games}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.inn}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.no}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:isBC?GOLD2:CREAM, textAlign:"right", fontWeight:isBC?700:400 }}>{p.runs}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.hs}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.avg.toFixed(2)}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.sr.toFixed(2)}</td>
+                        </tr>);
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                <p style={{ fontFamily:"monospace", fontSize:10, color:MUTED, marginTop:8 }}>🔵 = Pembury CC Blue Caps player · Source: Invicta JCL play-cricket.com</p>
+              </div>
+            )}
+
+            {lTab === "bowling" && (
+              <div>
+                <div style={{ display:"flex", alignItems:"center", gap:12, margin:"0 0 14px" }}>
+                  <div style={{ width:26, height:26, background:GOLD, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:12 }}>⚾</div>
+                  <h2 style={{ fontFamily:"Georgia,serif", fontSize:18, fontWeight:700, color:CREAM }}>Division 2 · Top 10 Bowling</h2>
+                  <div style={{ flex:1, height:1, background:BORDER }} />
+                </div>
+                <div style={{ overflowX:"auto", borderRadius:6, border:`1px solid ${BORDER}`, background:CARD }}>
+                  <table style={{ width:"100%", borderCollapse:"collapse" }}>
+                    <thead><tr>{["#","Player","Overs","Runs","Wkts","Best","Econ","Avg"].map((h,i)=><th key={h} style={{ fontFamily:"monospace", fontSize:10, letterSpacing:1.5, textTransform:"uppercase", color:GOLD, padding:"10px 13px", textAlign:i<=1?"left":"right", whiteSpace:"nowrap", background:NAVY2, borderBottom:`2px solid ${GOLD}` }}>{h}</th>)}</tr></thead>
+                    <tbody>
+                      {LEAGUE_BOWLING.map(p => {
+                        const isBC = BLUE_CAPS.includes(p.name);
+                        return (<tr key={p.rank} style={{ background: isBC?"rgba(201,168,76,0.08)":"transparent", borderBottom:`1px solid ${BORDER}` }}>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:isBC?GOLD:MUTED, textAlign:"left" }}>{p.rank}</td>
+                          <td style={{ padding:"9px 13px", fontSize:13, fontWeight:500, color:isBC?GOLD:CREAM, textAlign:"left", whiteSpace:"nowrap", minWidth:160 }}>{p.name}{isBC?" 🔵":""}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.overs}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.runs}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:isBC?GOLD2:CREAM, textAlign:"right", fontWeight:isBC?700:400 }}>{p.wkts}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:GREEN, textAlign:"right" }}>{p.best}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.econ.toFixed(2)}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.avg.toFixed(2)}</td>
+                        </tr>);
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                <p style={{ fontFamily:"monospace", fontSize:10, color:MUTED, marginTop:8 }}>🔵 = Pembury CC Blue Caps player · Source: Invicta JCL play-cricket.com</p>
+              </div>
+            )}
+
+            {lTab === "fielding" && (
+              <div>
+                <div style={{ display:"flex", alignItems:"center", gap:12, margin:"0 0 14px" }}>
+                  <div style={{ width:26, height:26, background:GOLD, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:12 }}>🧤</div>
+                  <h2 style={{ fontFamily:"Georgia,serif", fontSize:18, fontWeight:700, color:CREAM }}>Division 2 · Top 10 Fielding</h2>
+                  <div style={{ flex:1, height:1, background:BORDER }} />
+                </div>
+                <div style={{ overflowX:"auto", borderRadius:6, border:`1px solid ${BORDER}`, background:CARD }}>
+                  <table style={{ width:"100%", borderCollapse:"collapse" }}>
+                    <thead><tr>{["#","Player","WK Catches","Stumpings","WK Wkts","Fld Catches","Run Outs","Total Fld","Total Victims"].map((h,i)=><th key={h} style={{ fontFamily:"monospace", fontSize:10, letterSpacing:1.5, textTransform:"uppercase", color:GOLD, padding:"10px 13px", textAlign:i<=1?"left":"right", whiteSpace:"nowrap", background:NAVY2, borderBottom:`2px solid ${GOLD}` }}>{h}</th>)}</tr></thead>
+                    <tbody>
+                      {LEAGUE_FIELDING.map(p => {
+                        const isBC = BLUE_CAPS.includes(p.name);
+                        return (<tr key={p.rank} style={{ background: isBC?"rgba(201,168,76,0.08)":"transparent", borderBottom:`1px solid ${BORDER}` }}>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:isBC?GOLD:MUTED, textAlign:"left" }}>{p.rank}</td>
+                          <td style={{ padding:"9px 13px", fontSize:13, fontWeight:500, color:isBC?GOLD:CREAM, textAlign:"left", whiteSpace:"nowrap", minWidth:180 }}>{p.name}{isBC?" 🔵":""}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.wkCatches}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.stumpings}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.wkWkts}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.fldCatches}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.runOuts}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:CREAM, textAlign:"right" }}>{p.totalFld}</td>
+                          <td style={{ padding:"9px 13px", fontFamily:"monospace", fontSize:12, color:isBC?GOLD2:CREAM, textAlign:"right", fontWeight:isBC?700:400 }}>{p.totalVictims}</td>
+                        </tr>);
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                <p style={{ fontFamily:"monospace", fontSize:10, color:MUTED, marginTop:8 }}>🔵 = Pembury CC Blue Caps player · Source: Invicta JCL play-cricket.com</p>
               </div>
             )}
           </div>
