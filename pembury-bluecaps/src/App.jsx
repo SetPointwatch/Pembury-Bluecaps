@@ -225,16 +225,57 @@ const MATCHES = [
   },
 ];
 
+// ── THE SMASH ──────────────────────────────────────────────────────────────────
+const SMASH_MATCHES = [
+  {
+    id: "s1", date: "23 Jun 2026", opponent: "Linden Park CC U13 Titans", opponentShort: "LP Titans",
+    venue: "Chalket Lane", toss: "Pembury won toss, elected to bat",
+    pemburyScore: "130/4", pemburyBalls: 100, opponentScore: "98/7", opponentBalls: 100,
+    result: "WIN", margin: "32 runs",
+    batting: [
+      { name: "Sam Brewis",        runs: 25, balls: 27, fours: 1, sixes: 0, out: "retired n.o.",                         sr:  92.59 },
+      { name: "Molly Cairns",      runs: 19, balls: 16, fours: 1, sixes: 0, out: "run out (A Pradeep)",                  sr: 118.75 },
+      { name: "Caleb Baker-Swain", runs:  4, balls:  2, fours: 1, sixes: 0, out: "c J Upadhya b S Guha",                sr: 200.00 },
+      { name: "Freddie Hall",      runs:  7, balls:  8, fours: 0, sixes: 0, out: "run out (E Mcgivney-Greenslade)",      sr:  87.50 },
+      { name: "Jake Nicholson",    runs: 20, balls: 18, fours: 3, sixes: 0, out: "retired n.o.",                         sr: 111.11 },
+      { name: "Bailey Osman",      runs: 13, balls: 17, fours: 2, sixes: 0, out: "run out (G Corner)",                   sr:  76.47 },
+      { name: "Harry Brown",       runs:  0, balls:  1, fours: 0, sixes: 0, out: "not out",                              sr:   0.00 },
+      { name: "Dexter Robles",     runs: null, balls: null, out: "dnb" },
+      { name: "Avery Fell",        runs: null, balls: null, out: "dnb" },
+      { name: "Tristan Durrant",   runs: null, balls: null, out: "dnb" },
+      { name: "Eleanor Pateman",   runs: null, balls: null, out: "dnb" },
+    ],
+    bowling: [
+      { name: "Harry Brown",       balls: 10, runs:  7, wkts: 1, econ: 4.20 },
+      { name: "Jake Nicholson",    balls: 10, runs:  9, wkts: 1, econ: 5.40 },
+      { name: "Avery Fell",        balls: 10, runs: 19, wkts: 0, econ: 11.40 },
+      { name: "Dexter Robles",     balls: 10, runs:  7, wkts: 0, econ: 4.20 },
+      { name: "Eleanor Pateman",   balls: 10, runs: 10, wkts: 0, econ: 6.00 },
+      { name: "Tristan Durrant",   balls: 10, runs:  4, wkts: 0, econ: 2.40 },
+      { name: "Freddie Hall",      balls: 10, runs: 11, wkts: 0, econ: 6.60 },
+      { name: "Bailey Osman",      balls: 10, runs:  8, wkts: 1, econ: 4.80 },
+      { name: "Caleb Baker-Swain", balls: 10, runs:  6, wkts: 0, econ: 3.60 },
+      { name: "Molly Cairns",      balls: 10, runs:  8, wkts: 3, econ: 4.80 },
+    ],
+    extras: { nb: 10, wd: 23, b: 6, lb: 3, total: 42 },
+    fow: "52/1 M Cairns · 57/2 C Baker-Swain · 87/3 F Hall · 130/4 B Osman",
+  },
+];
+
+
 function seasonStats() {
   const p = {};
-  MATCHES.forEach(m => {
+  const allMatches = [...MATCHES, ...SMASH_MATCHES];
+  allMatches.forEach(m => {
     m.batting.forEach(b => {
       if (!p[b.name]) p[b.name] = { bat: [], bowl: [] };
       if (b.runs !== null) p[b.name].bat.push(b);
     });
     m.bowling.forEach(b => {
       if (!p[b.name]) p[b.name] = { bat: [], bowl: [] };
-      p[b.name].bowl.push(b);
+      // convert balls to overs if it's a Smash entry (has balls not overs)
+      const overs = b.overs !== undefined ? b.overs : b.balls / 6;
+      p[b.name].bowl.push({ ...b, overs });
     });
   });
   return Object.entries(p).map(([name, d]) => {
@@ -330,6 +371,8 @@ export default function App() {
   const [mTab, setMTab]     = useState("batting");
   const [sTab, setSTab]     = useState("batting");
   const [lTab, setLTab]     = useState("batting");
+  const [smashId, setSmashId] = useState(null);
+  const [smashTab, setSmashTab] = useState("batting");
 
   const goMatch = (id) => { setMId(id); setMTab("batting"); setView("match"); };
   const m = MATCHES.find(x => x.id === matchId);
@@ -382,6 +425,7 @@ export default function App() {
           <NavBtn label="Overview"     active={view==="overview"} onClick={()=>setView("overview")} />
           <NavBtn label="Season Stats" active={view==="season"}   onClick={()=>setView("season")} />
           <NavBtn label="League Tables" active={view==="league"}   onClick={()=>setView("league")} />
+          <NavBtn label="The Smash" active={view==="smash"}   onClick={()=>{ setSmashId(null); setView("smash"); }} />
           {MATCHES.map(x => (
             <NavBtn key={x.id} label={`vs ${x.opponentShort}`}
               active={view==="match" && matchId===x.id}
@@ -724,6 +768,133 @@ export default function App() {
                 <p style={{ fontFamily:"monospace", fontSize:10, color:MUTED, marginTop:8 }}>🔵 = Pembury CC Blue Caps player · Source: Invicta JCL play-cricket.com</p>
               </div>
             )}
+          </div>
+        )}
+
+
+        {/* ══ THE SMASH ══ */}
+        {view === "smash" && (
+          <div>
+            <div style={{ background:"rgba(201,168,76,0.08)", border:`1px solid ${GOLD}`, borderRadius:6, padding:"12px 18px", marginBottom:24, display:"flex", alignItems:"center", gap:12 }}>
+              <span style={{ fontSize:20 }}>⚡</span>
+              <div>
+                <div style={{ fontFamily:"monospace", fontSize:10, color:GOLD, letterSpacing:2, textTransform:"uppercase" }}>Mini Tournament</div>
+                <div style={{ fontFamily:"Georgia,serif", fontSize:18, fontWeight:700, color:CREAM }}>The Smash · U13 Boys Tier Two Group Two</div>
+              </div>
+              <div style={{ marginLeft:"auto", textAlign:"right" }}>
+                <div style={{ fontFamily:"Georgia,serif", fontSize:28, fontWeight:900, color:GREEN }}>{SMASH_MATCHES.filter(x=>x.result==="WIN").length}/{SMASH_MATCHES.length}</div>
+                <div style={{ fontFamily:"monospace", fontSize:10, color:MUTED, letterSpacing:1, textTransform:"uppercase" }}>Won</div>
+              </div>
+            </div>
+
+            {smashId === null && (
+              <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))", gap:14 }}>
+                {SMASH_MATCHES.map(x => (
+                  <div key={x.id} onClick={()=>{ setSmashId(x.id); setSmashTab("batting"); }}
+                    style={{ background:CARD, border:`1px solid ${BORDER}`, borderTop:`3px solid ${x.result==="WIN"?GREEN:RED}`, borderRadius:4, padding:"14px 16px", cursor:"pointer" }}
+                    onMouseEnter={e=>e.currentTarget.style.background="#122840"}
+                    onMouseLeave={e=>e.currentTarget.style.background=CARD}
+                  >
+                    <div style={{ fontFamily:"monospace", fontSize:10, color:MUTED, letterSpacing:1, textTransform:"uppercase", marginBottom:5 }}>{x.date}</div>
+                    <div style={{ fontSize:13, fontWeight:500, marginBottom:8, lineHeight:1.4 }}>vs {x.opponent}</div>
+                    <div style={{ fontFamily:"monospace", fontSize:12, color:GOLD2, marginBottom:8 }}>
+                      {x.pemburyScore} <span style={{color:MUTED}}>({x.pemburyBalls} balls)</span>
+                      <span style={{color:MUTED,margin:"0 5px"}}>vs</span>
+                      {x.opponentScore} <span style={{color:MUTED}}>({x.opponentBalls} balls)</span>
+                    </div>
+                    <span style={{ display:"inline-block", borderRadius:2, padding:"2px 7px", fontFamily:"monospace", fontSize:9, letterSpacing:1, textTransform:"uppercase", background:x.result==="WIN"?"rgba(82,183,136,0.15)":"rgba(193,68,14,0.15)", color:x.result==="WIN"?GREEN:RED, border:`1px solid ${x.result==="WIN"?"rgba(82,183,136,0.3)":"rgba(193,68,14,0.3)"}`, marginRight:8 }}>{x.result}</span>
+                    <span style={{ fontFamily:"monospace", fontSize:10, color:MUTED }}>{x.margin}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {smashId !== null && (() => {
+              const sm = SMASH_MATCHES.find(x => x.id === smashId);
+              if (!sm) return null;
+              return (
+                <div>
+                  <button onClick={()=>setSmashId(null)} style={{ background:"none", border:`1px solid ${BORDER}`, color:MUTED, fontFamily:"monospace", fontSize:10, letterSpacing:1, textTransform:"uppercase", padding:"5px 11px", borderRadius:3, cursor:"pointer", marginBottom:18 }}>← Back</button>
+                  <div style={{ background:CARD, border:`1px solid ${BORDER}`, borderRadius:6, padding:"18px 20px", marginBottom:22 }}>
+                    <div style={{ fontFamily:"monospace", fontSize:10, color:MUTED, letterSpacing:1, textTransform:"uppercase", marginBottom:6 }}>{sm.date} · {sm.venue}</div>
+                    <h2 style={{ fontFamily:"Georgia,serif", fontSize:20, color:CREAM, marginBottom:14 }}>vs {sm.opponent}</h2>
+                    <div style={{ display:"flex", gap:20, flexWrap:"wrap", alignItems:"flex-end" }}>
+                      <div>
+                        <div style={{ fontFamily:"monospace", fontSize:10, color:MUTED, letterSpacing:1, marginBottom:2 }}>PEMBURY</div>
+                        <div style={{ fontFamily:"Georgia,serif", fontSize:26, color:GOLD2 }}>{sm.pemburyScore} <span style={{ fontSize:12, color:MUTED, fontFamily:"monospace" }}>({sm.pemburyBalls} balls)</span></div>
+                      </div>
+                      <div style={{ fontFamily:"monospace", fontSize:14, color:BORDER, paddingBottom:3 }}>vs</div>
+                      <div>
+                        <div style={{ fontFamily:"monospace", fontSize:10, color:MUTED, letterSpacing:1, marginBottom:2 }}>{sm.opponentShort.toUpperCase()}</div>
+                        <div style={{ fontFamily:"Georgia,serif", fontSize:26, color:CREAM }}>{sm.opponentScore} <span style={{ fontSize:12, color:MUTED, fontFamily:"monospace" }}>({sm.opponentBalls} balls)</span></div>
+                      </div>
+                      <div style={{ marginLeft:"auto", textAlign:"right" }}>
+                        <span style={{ display:"inline-block", borderRadius:2, padding:"2px 7px", fontFamily:"monospace", fontSize:9, letterSpacing:1, textTransform:"uppercase", background:sm.result==="WIN"?"rgba(82,183,136,0.15)":"rgba(193,68,14,0.15)", color:sm.result==="WIN"?GREEN:RED, border:`1px solid ${sm.result==="WIN"?"rgba(82,183,136,0.3)":"rgba(193,68,14,0.3)"}` }}>{sm.result}</span>
+                        <div style={{ fontFamily:"monospace", fontSize:10, color:MUTED, marginTop:4 }}>{sm.margin}</div>
+                      </div>
+                    </div>
+                    {sm.toss && <div style={{ fontFamily:"monospace", fontSize:10, color:MUTED, marginTop:10, paddingTop:10, borderTop:`1px solid ${BORDER}` }}>Toss: {sm.toss}</div>}
+                  </div>
+                  <div style={{ display:"flex", borderBottom:`1px solid ${BORDER}`, marginBottom:16 }}>
+                    {["batting","bowling","extras"].map(t => <button key={t} onClick={()=>setSmashTab(t)} style={{ background:"transparent", color:smashTab===t?GOLD:MUTED, border:"none", borderBottom:`2px solid ${smashTab===t?GOLD:"transparent"}`, fontFamily:"monospace", fontSize:11, letterSpacing:1, textTransform:"uppercase", padding:"8px 14px", cursor:"pointer" }}>{t}</button>)}
+                  </div>
+                  {smashTab === "batting" && (
+                    <div>
+                      <div style={{ overflowX:"auto", borderRadius:6, border:`1px solid ${BORDER}`, background:CARD }}>
+                        <table style={{ width:"100%", borderCollapse:"collapse" }}>
+                          <thead><tr>{["Player","R","B","4s","6s","SR","Dismissal"].map((h,i)=><th key={h} style={th(i===0||i===6)}>{h}</th>)}</tr></thead>
+                          <tbody>
+                            {sm.batting.filter(b=>b.out!=="dnb").map((b,i)=>(
+                              <tr key={i}>
+                                <td style={{...tdBase(true), color:CREAM}}>{b.name}</td>
+                                <td style={{...tdBase(false), color:colourFor(b.runs,"runs")}}>{b.runs}</td>
+                                <td style={{...tdBase(false), color:CREAM}}>{b.balls}</td>
+                                <td style={{...tdBase(false), color:CREAM}}>{b.fours}</td>
+                                <td style={{...tdBase(false), color:CREAM}}>{b.sixes}</td>
+                                <td style={{...tdBase(false), color:colourFor(b.sr,"sr")}}>{b.sr!=null?b.sr.toFixed(1):"—"}</td>
+                                <td style={{...tdBase(true), color:MUTED, fontSize:11}}>{b.out}</td>
+                              </tr>
+                            ))}
+                            {sm.batting.filter(b=>b.out==="dnb").length>0&&(<tr><td colSpan={7} style={{padding:"7px 13px",fontFamily:"monospace",fontSize:10,color:MUTED,borderBottom:`1px solid ${BORDER}`}}>DNB: {sm.batting.filter(b=>b.out==="dnb").map(b=>b.name).join(", ")}</td></tr>)}
+                          </tbody>
+                        </table>
+                      </div>
+                      {sm.fow && <p style={{ fontFamily:"monospace", fontSize:10, color:MUTED, marginTop:8, lineHeight:1.7 }}>FoW: {sm.fow}</p>}
+                    </div>
+                  )}
+                  {smashTab === "bowling" && (
+                    <div style={{ overflowX:"auto", borderRadius:6, border:`1px solid ${BORDER}`, background:CARD }}>
+                      <table style={{ width:"100%", borderCollapse:"collapse" }}>
+                        <thead><tr>{["Bowler","Balls","R","W","Econ"].map((h,i)=><th key={h} style={th(i===0)}>{h}</th>)}</tr></thead>
+                        <tbody>
+                          {sm.bowling.map((b,i)=>(
+                            <tr key={i}>
+                              <td style={{...tdBase(true), color:CREAM}}>{b.name}</td>
+                              <td style={{...tdBase(false), color:CREAM}}>{b.balls}</td>
+                              <td style={{...tdBase(false), color:CREAM}}>{b.runs}</td>
+                              <td style={{...tdBase(false), color:colourFor(b.wkts,"wkts")}}>{b.wkts}</td>
+                              <td style={{...tdBase(false), color:colourFor(b.econ,"econ")}}>{b.econ.toFixed(2)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                  {smashTab === "extras" && (
+                    <div style={{ background:CARD, border:`1px solid ${BORDER}`, borderRadius:6, padding:22 }}>
+                      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(80px,1fr))", gap:18 }}>
+                        {[["nb","No Balls"],["wd","Wides"],["b","Byes"],["lb","Leg Byes"],["total","Total"]].map(([k,label])=>(
+                          <div key={k} style={{ textAlign:"center" }}>
+                            <div style={{ fontFamily:"Georgia,serif", fontSize:28, color:k==="total"?GOLD2:CREAM }}>{sm.extras[k]}</div>
+                            <div style={{ fontFamily:"monospace", fontSize:10, color:MUTED, letterSpacing:1, textTransform:"uppercase", marginTop:4 }}>{label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         )}
 
