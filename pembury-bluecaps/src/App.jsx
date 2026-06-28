@@ -223,6 +223,35 @@ const MATCHES = [
     extras: { nb: 10, wd: 12, b: 17, lb: 2, total: 41 },
     fow: "39/1 S Brewis · 39/2 F Hall · 107/3 C Baker-Swain · 124/4 D Robles · 128/5 B Osman · 136/6 A Fell",
   },
+  {
+    id: "m8", date: "28 Jun 2026", opponent: "Penshurst Park CC U13 B", opponentShort: "Penshurst",
+    venue: "Chalket Lane", toss: "Penshurst Park won toss, elected to field",
+    pemburyScore: "178/6", pemburyOvers: 20, opponentScore: "84/10", opponentOvers: 17.1,
+    result: "WIN", margin: "94 runs",
+    batting: [
+      { name: "Sam Brewis",        runs:  6, balls:  6, fours: 1, sixes: 0, out: "b E Boscowen",              sr: 100.00 },
+      { name: "Molly Cairns",      runs: 33, balls: 25, fours: 5, sixes: 0, out: "retired n.o.",              sr: 132.00 },
+      { name: "Caleb Baker-Swain", runs: 50, balls: 42, fours: 6, sixes: 0, out: "not out",                  sr: 119.05 },
+      { name: "Dexter Robles",     runs:  1, balls:  3, fours: 0, sixes: 0, out: "b P Mace",                 sr:  33.33 },
+      { name: "Harry Brown",       runs:  4, balls:  6, fours: 1, sixes: 0, out: "b P Mace",                 sr:  66.67 },
+      { name: "Jake Nicholson",    runs: 16, balls: 15, fours: 1, sixes: 0, out: "c E Boscowen b H Taylor",  sr: 106.67 },
+      { name: "Freddie Hall",      runs:  5, balls:  6, fours: 1, sixes: 0, out: "c E Boscowen b H Raynor",  sr:  83.33 },
+      { name: "Bailey Osman",      runs:  5, balls:  3, fours: 0, sixes: 0, out: "c & b E Boscowen",         sr: 166.67 },
+      { name: "Dominic Meeks",     runs:  6, balls: 13, fours: 0, sixes: 0, out: "not out",                  sr:  46.15 },
+    ],
+    bowling: [
+      { name: "Harry Brown",       overs: 3,   runs: 15, wkts: 2, econ:  5.00 },
+      { name: "Jake Nicholson",    overs: 2.1, runs:  9, wkts: 1, econ:  4.15 },
+      { name: "Dominic Meeks",     overs: 2,   runs: 15, wkts: 1, econ:  7.50 },
+      { name: "Freddie Hall",      overs: 2,   runs:  6, wkts: 1, econ:  3.00 },
+      { name: "Bailey Osman",      overs: 2,   runs: 20, wkts: 0, econ: 10.00 },
+      { name: "Dexter Robles",     overs: 2,   runs: 11, wkts: 0, econ:  5.50 },
+      { name: "Caleb Baker-Swain", overs: 2,   runs:  2, wkts: 0, econ:  1.00 },
+      { name: "Molly Cairns",      overs: 2,   runs:  6, wkts: 0, econ:  3.00 },
+    ],
+    extras: { nb: 20, wd: 11, b: 18, lb: 3, total: 52 },
+    fow: "21/1 S Brewis · 110/2 D Robles · 113/3 H Brown · 125/4 F Hall · 138/5 B Osman · 149/6 J Nicholson",
+  },
 ];
 
 // ── THE SMASH ──────────────────────────────────────────────────────────────────
